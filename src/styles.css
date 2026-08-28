@@ -71,9 +71,28 @@
   --input: oklch(0.88 0.02 250 / 16%);
   --ring: oklch(0.48 0.19 25);
   --ichor: oklch(0.55 0.21 25);
+  --ichor-deep: oklch(0.36 0.15 25);
   --gold: oklch(0.85 0.14 95);
-  --steel: oklch(0.78 0.02 250);
-  --seafoam: oklch(0.75 0.12 175);
+  --gold-deep: oklch(0.62 0.12 80);
+  --steel: oklch(0.82 0.012 250);
+  --steel-deep: oklch(0.52 0.012 250);
+
+  /* Signature blends — silver, red, gold */
+  --gradient-regalia: linear-gradient(
+    120deg,
+    var(--steel-deep) 0%,
+    var(--steel) 22%,
+    var(--gold) 50%,
+    var(--ichor) 78%,
+    var(--ichor-deep) 100%
+  );
+  --gradient-silver: linear-gradient(
+    150deg,
+    oklch(0.95 0.008 250) 0%,
+    var(--steel) 38%,
+    var(--steel-deep) 100%
+  );
+  --shadow-regal: 0 24px 60px -28px oklch(0.48 0.19 25 / 55%);
 }
 
 @layer base {
