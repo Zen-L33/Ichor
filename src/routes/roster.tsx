@@ -30,7 +30,7 @@ export const Route = createFileRoute("/roster")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: RosterPage;
+  component: RosterPage,
 });
 
 type Filter = DivisionKey | "all";
