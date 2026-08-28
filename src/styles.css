@@ -173,3 +173,61 @@
 @utility animate-flicker {
   animation: flicker 5s linear infinite;
 }
+
+/* ── Silver / red / gold treatments ─────────────────────────── */
+
+@utility text-regalia {
+  background: var(--gradient-regalia);
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-silver {
+  background: var(--gradient-silver);
+  background-clip: text;
+  color: transparent;
+}
+
+@utility rule-regalia {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--steel-deep),
+    var(--gold),
+    var(--ichor),
+    transparent
+  );
+}
+
+@utility surface-plate {
+  background:
+    linear-gradient(
+      180deg,
+      oklch(0.88 0.02 250 / 6%) 0%,
+      transparent 40%
+    ),
+    var(--card);
+  box-shadow: var(--shadow-regal);
+}
+
+@utility text-glow-steel {
+  text-shadow:
+    0 0 20px oklch(0.82 0.012 250 / 40%),
+    0 0 60px oklch(0.82 0.012 250 / 18%);
+}
+
+@keyframes sheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@utility animate-sheen {
+  background-size: 200% auto;
+  animation: sheen 8s linear infinite;
+}
