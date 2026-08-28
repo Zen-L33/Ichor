@@ -39,9 +39,11 @@
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
   --color-ichor: var(--ichor);
+  --color-ichor-deep: var(--ichor-deep);
   --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
   --color-steel: var(--steel);
-  --color-seafoam: var(--seafoam);
+  --color-steel-deep: var(--steel-deep);
   --font-display: "Cinzel", serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
