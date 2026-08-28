@@ -7,32 +7,32 @@ import {
   ranks,
 } from "@/data/crew";
 
-export const Route = createFileRoute("/")({{
-  head: () => ({{
+export const Route = createFileRoute("/")({
+  head: () => ({
     meta: [
-      {{ title: "ICHOR — Rell Seas Crew" }},
-      {{
+      { title: "ICHOR — Rell Seas Crew" },
+      {
         name: "description",
         content:
           "Ichor is a Rell Seas crew of three divisions: the Sunborne Celestials of Apollo, the Aegis Knights of Athena, and the Windbound Saints of Hermes.",
-      }},
-      {{ property: "og:title", content: "ICHOR — Rell Seas Crew" }},
-      {{
+      },
+      { property: "og:title", content: "ICHOR — Rell Seas Crew" },
+      {
         property: "og:description",
         content:
           "Three divisions under one banner — Sunborne Celestials, Aegis Knights, Windbound Saints.",
-      }},
-      {{ property: "og:type", content: "website" }},
-      {{ name: "twitter:card", content: "summary_large_image" }},
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-  }}}},
+  }),
   component: Index,
-}});
+});
 
-function Index() {{
+function Index() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-background">
-      {{/* Ambient glow */}}
+      {/* Ambient glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -42,7 +42,7 @@ function Index() {{
         }}
       />
 
-      {{/* Nav */}}
+      {/* Nav */}
       <nav className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <a href="#top" className="flex items-center gap-3">
           <img
@@ -68,7 +68,7 @@ function Index() {{
       </nav>
 
       <main id="top" className="relative z-10">
-        {{/* Hero */}}
+        {/* Hero */}
         <section className="mx-auto flex max-w-6xl flex-col items-center px-6 pt-10 pb-20 text-center sm:pt-14">
           <div className="relative animate-float-slow">
             <div
@@ -100,7 +100,7 @@ function Index() {{
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <a
-              href={{DISCORD_INVITE}}
+              href={DISCORD_INVITE}
               className="rounded-md bg-primary px-7 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30px_oklch(0.48_0.19_25/60%)]"
             >
               Join the Crew
@@ -113,29 +113,29 @@ function Index() {{
             </Link>
           </div>
 
-          {{/* Division quick strip */}}
+          {/* Division quick strip */}
           <div className="mt-14 grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
-            {{divisions.map((d) => {{
+            {divisions.map((d) => {
               const accent = accentStyles[d.accent];
               return (
                 <a
-                  key={{d.key}}
+                  key={d.key}
                   href="#divisions"
-                  className={{`rounded-lg border border-border bg-card/60 px-4 py-3 transition-colors ${{accent.ring}}`}}
+                  className={`rounded-lg border border-border bg-card/60 px-4 py-3 transition-colors ${accent.ring}`}
                 >
-                  <p className={{`font-mono text-[0.6rem] tracking-[0.25em] uppercase ${{accent.text}}`}}>
-                    {{d.role}}
+                  <p className={`font-mono text-[0.6rem] tracking-[0.25em] uppercase ${accent.text}`}>
+                    {d.role}
                   </p>
                   <p className="mt-1 font-display text-sm font-bold text-foreground">
-                    {{d.short}}
+                    {d.short}
                   </p>
                 </a>
               );
-            }})}}}
+            })}
           </div>
         </section>
 
-        {{/* Divisions */}}
+        {/* Divisions */}
         <section id="divisions" className="mx-auto max-w-6xl scroll-mt-24 px-6 pb-24">
           <div className="mb-12 text-center">
             <p className="font-mono text-xs tracking-[0.35em] text-ichor uppercase">
@@ -148,53 +148,53 @@ function Index() {{
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {{divisions.map((division) => {{
+            {divisions.map((division) => {
               const Icon = division.icon;
               const accent = accentStyles[division.accent];
               return (
                 <article
-                  key={{division.key}}
-                  className={{`surface-plate group relative overflow-hidden rounded-xl border border-border p-8 transition-all duration-300 ${{accent.ring}} hover:-translate-y-1`}}
+                  key={division.key}
+                  className={`surface-plate group relative overflow-hidden rounded-xl border border-border p-8 transition-all duration-300 ${accent.ring} hover:-translate-y-1`}
                 >
                   <div
                     aria-hidden
-                    className={{`absolute inset-x-0 top-0 h-px ${{accent.dot}} opacity-50`}}
+                    className={`absolute inset-x-0 top-0 h-px ${accent.dot} opacity-50`}
                   />
                   <div
-                    className={{`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-lg border ${{accent.border}} ${{accent.bg}}`}}
+                    className={`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-lg border ${accent.border} ${accent.bg}`}
                   >
-                    <Icon className={{`h-7 w-7 ${{accent.text}}`}} />
+                    <Icon className={`h-7 w-7 ${accent.text}`} />
                   </div>
-                  <p className={{`font-mono text-xs tracking-[0.25em] uppercase ${{accent.text}}`}}>
-                    {{division.role}} · {{division.patron}}
+                  <p className={`font-mono text-xs tracking-[0.25em] uppercase ${accent.text}`}>
+                    {division.role} · {division.patron}
                   </p>
                   <h3 className="mt-2 font-display text-2xl font-bold text-foreground">
-                    {{division.name}}
+                    {division.name}
                   </h3>
                   <p className="mt-1 font-mono text-[0.7rem] tracking-wide text-muted-foreground/80 italic">
-                    {{division.epithet}}
+                    {division.epithet}
                   </p>
                   <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                    {{division.description}}
+                    {division.description}
                   </p>
                   <ul className="mt-6 space-y-2">
-                    {{division.specialties.map((s) => (
+                    {division.specialties.map((s) => (
                       <li
-                        key={{s}}
+                        key={s}
                         className="flex items-center gap-2.5 font-mono text-xs text-muted-foreground"
                       >
-                        <span className={{`h-1 w-1 rounded-full ${{accent.dot}}`}} />
-                        {{s}}
+                        <span className={`h-1 w-1 rounded-full ${accent.dot}`} />
+                        {s}
                       </li>
-                    ))}}
+                    ))}
                   </ul>
                 </article>
               );
-            }})}}}
+            })}
           </div>
         </section>
 
-        {{/* Ranks / roster teaser */}}
+        {/* Ranks / roster teaser */}
         <section className="mx-auto max-w-6xl px-6 pb-24">
           <div className="surface-plate rounded-2xl border border-border px-8 py-12">
             <div className="flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-between lg:text-left">
@@ -218,21 +218,21 @@ function Index() {{
                 </Link>
               </div>
               <ul className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-2">
-                {{ranks.map((r) => (
+                {ranks.map((r) => (
                   <li
-                    key={{r.name}}
+                    key={r.name}
                     className="flex items-center gap-2 font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase"
                   >
                     <span className="h-1 w-1 rounded-full bg-gold" />
-                    {{r.name}}
+                    {r.name}
                   </li>
-                ))}}
+                ))}
               </ul>
             </div>
           </div>
         </section>
 
-        {{/* Join / Discord */}}
+        {/* Join / Discord */}
         <section id="join" className="mx-auto max-w-6xl scroll-mt-24 px-6 pb-24">
           <div className="surface-plate relative overflow-hidden rounded-2xl border border-ichor/30 px-8 py-14 text-center">
             <div
@@ -252,7 +252,7 @@ function Index() {{
                 division, and raise the flag with us.
               </p>
               <a
-                href={{DISCORD_INVITE}}
+                href={DISCORD_INVITE}
                 className="mt-8 inline-block rounded-md bg-primary px-8 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30px_oklch(0.48_0.19_25/60%)]"
               >
                 Enter the Discord
@@ -265,7 +265,7 @@ function Index() {{
         </section>
       </main>
 
-      {{/* Footer */}}
+      {/* Footer */}
       <footer className="relative z-10 border-t border-border py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
           <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
@@ -280,4 +280,4 @@ function Index() {{
       </footer>
     </div>
   );
-}}
+}
