@@ -38,11 +38,11 @@ export const divisions: Division[] = [
     epithet: "Light, foresight & precision",
     role: "The backbone",
     description:
-      "Under the sign of Apollo, the Sunborne are the mind of ICHOR. They read the field before the first blade is drawn — calling strategy, running specialist roles, and turning smart combat into clean victories. Where the crew moves as one, it is because the Sunborne charted the line.",
+      "Under the sign of Apollo, the Sunborne are the mind of Ichor. They read the field before anyone moves — calling strategy, running specialist roles, and turning plans into clean wins. Where the crew moves as one, it is because the Sunborne charted the line.",
     specialties: [
       "Battle strategy & callouts",
-      "Specialist loadouts",
-      "Precision / ranged combat",
+      "Specialist roles",
+      "Field intelligence",
       "Fleet coordination",
     ],
     icon: Sun,
