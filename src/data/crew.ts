@@ -6,7 +6,7 @@ import { Sun, Shield, Wind, type LucideIcon } from "lucide-react";
  * The roster is keyed by Discord role names so it can later be replaced by a
  * live fetch from the Discord API (GET /guilds/{id}/members) without touching
  * any UI code. Keep `discordRoleName` in each division and each rank exactly
- * matching the role names in the ICHOR Discord server.
+ * matching the role names in the Ichor Discord server.
  */
 
 export const DISCORD_INVITE = "#join"; // TODO: paste the real invite URL
@@ -57,12 +57,12 @@ export const divisions: Division[] = [
     epithet: "Steel, discipline & the held line",
     role: "The frontline",
     description:
-      "Athena's own. The Aegis Knights meet the enemy first and leave last — shields locked, oaths kept. They anchor every engagement, absorb the charge, and hold ground long enough for the rest of ICHOR to finish the work.",
+      "Athena's own. The Aegis Knights are the shield of Ichor — disciplined, steadfast, and sworn to the crew. They hold the line, keep order, and make sure no one is left behind.",
     specialties: [
-      "Frontline assault",
-      "Boarding & defense",
-      "Tank / bruiser builds",
-      "Crew protection",
+      "Defense & crew protection",
+      "Discipline & drilling",
+      "Holding the line",
+      "Morale & standards",
     ],
     icon: Shield,
     accent: "steel",
@@ -76,12 +76,12 @@ export const divisions: Division[] = [
     epithet: "Speed, cunning & open horizons",
     role: "The pathfinders",
     description:
-      "Blessed by Hermes, the Windbound run ahead of the crew. Explorers, scouts and gatherers — they chart unknown islands, run trade and salvage, and keep every hold of ICHOR full before a fight ever starts.",
+      "Blessed by Hermes, the Windbound run ahead of the crew. Explorers, scouts and gatherers — they chart unknown islands, run trade and salvage, and keep every hold of Ichor full.",
     specialties: [
       "Exploration & scouting",
       "Resource gathering",
       "Trade routes & logistics",
-      "Mobility / flanking",
+      "Cartography",
     ],
     icon: Wind,
     accent: "ichor",
