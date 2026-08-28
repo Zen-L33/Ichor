@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "ICHOR is a Rell Seas crew of three divisions: the Sunborne Celestials of Apollo, the Aegis Knights of Athena, and the Windbound Saints of Hermes.",
+          "Ichor is a Rell Seas crew of three divisions: the Sunborne Celestials of Apollo, the Aegis Knights of Athena, and the Windbound Saints of Hermes.",
       },
       { property: "og:title", content: "ICHOR — Rell Seas Crew" },
       {
@@ -202,13 +202,13 @@ function Index() {
               <div>
                 <p className="flex items-center justify-center gap-2 font-mono text-xs tracking-[0.35em] text-gold uppercase lg:justify-start">
                   <Users className="h-3.5 w-3.5" />
-                  Ranks of ICHOR
+                  Ranks of Ichor
                 </p>
                 <h2 className="mt-3 font-display text-3xl font-bold tracking-wider text-silver sm:text-4xl">
                   Every hand, on the books
                 </h2>
                 <p className="mt-4 max-w-md text-sm text-muted-foreground">
-                  Our roster mirrors the roles you hold in the ICHOR Discord —
+                  Our roster mirrors the roles you hold in the Ichor Discord —
                   your rank and division come straight from your server roles.
                 </p>
                 <Link

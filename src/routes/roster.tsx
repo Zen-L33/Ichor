@@ -18,13 +18,13 @@ export const Route = createFileRoute("/roster")({
       {
         name: "description",
         content:
-          "The full ICHOR crew roster, sorted by Discord rank and division: Sunborne Celestials, Aegis Knights and Windbound Saints.",
+          "The full Ichor crew roster, sorted by Discord rank and division: Sunborne Celestials, Aegis Knights and Windbound Saints.",
       },
       { property: "og:title", content: "ICHOR Roster — The Crew of the Red Wing" },
       {
         property: "og:description",
         content:
-          "Every hand aboard ICHOR, grouped by division and rank straight from our Discord roles.",
+          "Every hand aboard Ichor, grouped by division and rank straight from our Discord roles.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -92,7 +92,7 @@ function RosterPage() {
           <div className="rule-regalia mx-auto mt-6 max-w-md" />
           <p className="mx-auto mt-6 max-w-xl text-sm text-muted-foreground sm:text-base">
             Every hand aboard, ranked and sorted by division. Ranks and division
-            membership mirror the roles you hold in the ICHOR Discord.
+            membership mirror the roles you hold in the Ichor Discord.
           </p>
         </header>
 
