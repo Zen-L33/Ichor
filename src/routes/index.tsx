@@ -54,7 +54,9 @@ const divisions = [
   },
 ] as const;
 
-const accentStyles: Record<string, { ring: string; text: string; bg: string }> = {
+type AccentKey = "gold" | "steel" | "seafoam";
+
+const accentStyles: Record<AccentKey, { ring: string; text: string; bg: string }> = {
   gold: {
     ring: "hover:border-gold/50",
     text: "text-gold",
