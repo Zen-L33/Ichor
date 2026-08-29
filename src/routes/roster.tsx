@@ -1,14 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { Users, Anchor } from "lucide-react";
+import { Users, Anchor, RefreshCw } from "lucide-react";
+import { getRoster } from "@/lib/discord.functions";
 import {
   DISCORD_INVITE,
   accentStyles,
   divisions,
   rankWeight,
-  roster,
   type DivisionKey,
 } from "@/data/crew";
+
+const rosterQueryOptions = queryOptions({
+  queryKey: ["roster"],
+  queryFn: () => getRoster(),
+  staleTime: 60_000,
+});
+
 
 export const Route = createFileRoute("/roster")({
   head: () => ({
