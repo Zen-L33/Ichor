@@ -6,6 +6,9 @@ import {
   divisions,
   ranks,
 } from "@/data/crew";
+import jollyRogerAsset from "@/assets/ichor-jolly-roger.png.asset.json";
+
+const jollyRoger = jollyRogerAsset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,7 +49,7 @@ function Index() {
       <nav className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <a href="#top" className="flex items-center gap-3">
           <img
-            src="/ichor-jolly-roger.webp"
+            src={jollyRoger}
             alt="ICHOR Jolly Roger"
             className="h-9 w-9 rounded-full object-cover ring-1 ring-border"
           />
@@ -80,8 +83,8 @@ function Index() {
               }}
             />
             <img
-              src="/ichor-jolly-roger.webp"
-              alt="The Jolly Roger of the ICHOR crew — a silver knight's helm with crimson wings and crossed swords"
+              src={jollyRoger}
+              alt="The Jolly Roger of the Ichor crew — a silver knight's helm with crimson wings and crossed swords"
               className="h-64 w-64 animate-flicker object-contain drop-shadow-[0_0_40px_oklch(0.48_0.19_25/45%)] sm:h-80 sm:w-80"
             />
           </div>
