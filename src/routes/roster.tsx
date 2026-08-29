@@ -136,12 +136,12 @@ function RosterPage() {
 
         {/* Roster grid */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {members.map((m) => {
+          {members.map((m, i) => {
             const division = divisions.find((d) => d.key === m.division);
             const accent = division ? accentStyles[division.accent] : null;
             return (
               <article
-                key={m.name}
+                key={`${m.name}-${i}`}
                 className={`surface-plate group flex items-center gap-4 rounded-xl border border-border p-5 transition-all duration-300 hover:-translate-y-0.5 ${accent?.ring ?? "hover:border-gold"}`}
               >
                 <div
