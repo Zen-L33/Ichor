@@ -1,14 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { Users, Anchor } from "lucide-react";
+import { Users, Anchor, RefreshCw } from "lucide-react";
+import { getRoster } from "@/lib/discord.functions";
 import {
   DISCORD_INVITE,
   accentStyles,
   divisions,
   rankWeight,
-  roster,
   type DivisionKey,
 } from "@/data/crew";
+
+const rosterQueryOptions = queryOptions({
+  queryKey: ["roster"],
+  queryFn: () => getRoster(),
+  staleTime: 60_000,
+});
+
 
 export const Route = createFileRoute("/roster")({
   head: () => ({
@@ -29,6 +37,8 @@ export const Route = createFileRoute("/roster")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData(rosterQueryOptions),
   component: RosterPage,
 });
 
@@ -36,18 +46,20 @@ type Filter = DivisionKey | "all";
 
 function RosterPage() {
   const [filter, setFilter] = useState<Filter>("all");
+  const { data } = useSuspenseQuery(rosterQueryOptions);
 
   const members = useMemo(
     () =>
-      roster
+      data.members
         .filter((m) => filter === "all" || m.division === filter)
         .sort(
           (a, b) =>
             rankWeight(b.rank) - rankWeight(a.rank) ||
             a.name.localeCompare(b.name),
         ),
-    [filter],
+    [filter, data.members],
   );
+
 
   return (
     <div className="relative min-h-screen bg-background">
@@ -82,9 +94,19 @@ function RosterPage() {
       <main className="relative z-10 mx-auto max-w-6xl px-6 pb-24">
         <header className="py-12 text-center">
           <p className="flex items-center justify-center gap-2 font-mono text-xs tracking-[0.35em] text-ichor uppercase">
-            <Users className="h-3.5 w-3.5" />
-            Synced with our Discord roles
+            {data.source === "live" ? (
+              <>
+                <RefreshCw className="h-3.5 w-3.5" />
+                Live from our Discord roles
+              </>
+            ) : (
+              <>
+                <Users className="h-3.5 w-3.5" />
+                Discord sync pending
+              </>
+            )}
           </p>
+
           <h1 className="mt-4 font-display text-5xl font-black tracking-[0.12em] text-regalia animate-sheen sm:text-6xl">
             THE ROSTER
           </h1>
@@ -114,12 +136,12 @@ function RosterPage() {
 
         {/* Roster grid */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {members.map((m) => {
+          {members.map((m, i) => {
             const division = divisions.find((d) => d.key === m.division);
             const accent = division ? accentStyles[division.accent] : null;
             return (
               <article
-                key={m.name}
+                key={`${m.name}-${i}`}
                 className={`surface-plate group flex items-center gap-4 rounded-xl border border-border p-5 transition-all duration-300 hover:-translate-y-0.5 ${accent?.ring ?? "hover:border-gold"}`}
               >
                 <div

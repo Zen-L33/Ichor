@@ -9,8 +9,8 @@ import { Sun, Shield, Wind, type LucideIcon } from "lucide-react";
  * matching the role names in the Ichor Discord server.
  */
 
-export const DISCORD_INVITE = "#join"; // TODO: paste the real invite URL
-export const DISCORD_GUILD_ID = ""; // TODO: paste the ICHOR server ID
+export const DISCORD_INVITE = "https://discord.gg/uPadxKJGp";
+export const DISCORD_GUILD_ID = "1360204829414129776";
 
 export type DivisionKey = "sunborne" | "aegis" | "windbound";
 export type AccentKey = "gold" | "steel" | "ichor";
