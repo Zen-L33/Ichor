@@ -10,6 +10,9 @@ import {
   rankWeight,
   type DivisionKey,
 } from "@/data/crew";
+import jollyRogerAsset from "@/assets/ichor-jolly-roger.png.asset.json";
+
+const jollyRoger = jollyRogerAsset.url;
 
 const rosterQueryOptions = queryOptions({
   queryKey: ["roster"],
@@ -75,7 +78,7 @@ function RosterPage() {
       <nav className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <Link to="/" className="flex items-center gap-3">
           <img
-            src="/ichor-jolly-roger.webp"
+            src={jollyRoger}
             alt="ICHOR Jolly Roger"
             className="h-9 w-9 rounded-full object-cover ring-1 ring-border"
           />
