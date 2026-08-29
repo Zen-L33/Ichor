@@ -94,9 +94,19 @@ function RosterPage() {
       <main className="relative z-10 mx-auto max-w-6xl px-6 pb-24">
         <header className="py-12 text-center">
           <p className="flex items-center justify-center gap-2 font-mono text-xs tracking-[0.35em] text-ichor uppercase">
-            <Users className="h-3.5 w-3.5" />
-            Synced with our Discord roles
+            {data.source === "live" ? (
+              <>
+                <RefreshCw className="h-3.5 w-3.5" />
+                Live from our Discord roles
+              </>
+            ) : (
+              <>
+                <Users className="h-3.5 w-3.5" />
+                Discord sync pending
+              </>
+            )}
           </p>
+
           <h1 className="mt-4 font-display text-5xl font-black tracking-[0.12em] text-regalia animate-sheen sm:text-6xl">
             THE ROSTER
           </h1>
