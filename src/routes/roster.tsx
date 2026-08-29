@@ -37,6 +37,8 @@ export const Route = createFileRoute("/roster")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData(rosterQueryOptions),
   component: RosterPage,
 });
 
@@ -44,18 +46,20 @@ type Filter = DivisionKey | "all";
 
 function RosterPage() {
   const [filter, setFilter] = useState<Filter>("all");
+  const { data } = useSuspenseQuery(rosterQueryOptions);
 
   const members = useMemo(
     () =>
-      roster
+      data.members
         .filter((m) => filter === "all" || m.division === filter)
         .sort(
           (a, b) =>
             rankWeight(b.rank) - rankWeight(a.rank) ||
             a.name.localeCompare(b.name),
         ),
-    [filter],
+    [filter, data.members],
   );
+
 
   return (
     <div className="relative min-h-screen bg-background">
