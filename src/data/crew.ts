@@ -126,6 +126,21 @@ export const ranks: Rank[] = [
 export const rankWeight = (rank: string) =>
   ranks.find((r) => r.name === rank)?.weight ?? 0;
 
+/**
+ * Ranks that belong on the "Main Crew" section of the roster: the Captain,
+ * Vice-Captain, Left Hand, Divine Council, and Main Crew members. Division
+ * commanders and vice commanders are shown under their own division tabs.
+ */
+export const MAIN_CREW_RANKS = new Set([
+  "Grand Marshal",
+  "Knight Commander",
+  "Saint of War",
+  "Divine Council",
+  "Main Crew",
+]);
+
+export const isMainCrewRank = (rank: string) => MAIN_CREW_RANKS.has(rank);
+
 export type Member = {
   /** Discord display name */
   name: string;
