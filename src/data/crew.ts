@@ -47,7 +47,7 @@ export const divisions: Division[] = [
     ],
     icon: Sun,
     accent: "gold",
-    discordRoleName: "Sunborne Celestials",
+    discordRoleName: "Celestials",
   },
   {
     key: "aegis",
@@ -66,7 +66,7 @@ export const divisions: Division[] = [
     ],
     icon: Shield,
     accent: "steel",
-    discordRoleName: "Aegis Knights",
+    discordRoleName: "Knights",
   },
   {
     key: "windbound",
@@ -85,7 +85,7 @@ export const divisions: Division[] = [
     ],
     icon: Wind,
     accent: "ichor",
-    discordRoleName: "Windbound Saints",
+    discordRoleName: "Saints",
   },
 ];
 
