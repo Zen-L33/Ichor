@@ -47,7 +47,7 @@ export const divisions: Division[] = [
     ],
     icon: Sun,
     accent: "gold",
-    discordRoleName: "Sunborne Celestials",
+    discordRoleName: "Celestials",
   },
   {
     key: "aegis",
@@ -66,7 +66,7 @@ export const divisions: Division[] = [
     ],
     icon: Shield,
     accent: "steel",
-    discordRoleName: "Aegis Knights",
+    discordRoleName: "Knights",
   },
   {
     key: "windbound",
@@ -85,24 +85,42 @@ export const divisions: Division[] = [
     ],
     icon: Wind,
     accent: "ichor",
-    discordRoleName: "Windbound Saints",
+    discordRoleName: "Saints",
   },
 ];
 
 export type Rank = {
   name: string;
   discordRoleName: string;
+  /** Plain-language meaning of the title */
+  note?: string;
   weight: number; // higher = more senior, used for roster ordering
 };
 
 export const ranks: Rank[] = [
-  { name: "Captain", discordRoleName: "Captain", weight: 100 },
-  { name: "First Mate", discordRoleName: "First Mate", weight: 90 },
-  { name: "Division Lead", discordRoleName: "Division Lead", weight: 80 },
-  { name: "Officer", discordRoleName: "Officer", weight: 70 },
-  { name: "Veteran", discordRoleName: "Veteran", weight: 60 },
-  { name: "Crew", discordRoleName: "Crew", weight: 50 },
-  { name: "Recruit", discordRoleName: "Recruit", weight: 40 },
+  { name: "Grand Marshal", discordRoleName: "Grand Marshal", note: "Captain", weight: 200 },
+  { name: "Knight Commander", discordRoleName: "Knight Commander", note: "Vice-Captain", weight: 190 },
+  { name: "Saint of War", discordRoleName: "Saint of War", note: "Left Hand", weight: 185 },
+  { name: "Divine Council", discordRoleName: "Divine Council", weight: 180 },
+
+  { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun", note: "Celestials Commander", weight: 170 },
+  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena", note: "Knights Commander", weight: 170 },
+  { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes", note: "Saints Commander", weight: 170 },
+
+  { name: "Solar Eclipse", discordRoleName: "Solar Eclipse", note: "Celestials Vice Commander", weight: 160 },
+  { name: "Lunar Eclipse", discordRoleName: "Lunar Eclipse", note: "Celestials Vice Commander", weight: 160 },
+  { name: "The Divine Spear", discordRoleName: "The Divine Spear", note: "Knights Vice Commander", weight: 160 },
+  { name: "The Holy Shield", discordRoleName: "The Holy Shield", note: "Knights Vice Commander", weight: 160 },
+  { name: "The Warden of Stars", discordRoleName: "The Warden of Stars", note: "Saints Vice Commander", weight: 160 },
+  { name: "The Shorekeeper", discordRoleName: "The Shorekeeper", note: "Saints Vice Commander", weight: 160 },
+
+  { name: "Main Crew", discordRoleName: "Main Crew", weight: 150 },
+
+  { name: "Celestials", discordRoleName: "Celestials", note: "Division member", weight: 140 },
+  { name: "Knights", discordRoleName: "Knights", note: "Division member", weight: 140 },
+  { name: "Saints", discordRoleName: "Saints", note: "Division member", weight: 140 },
+
+  { name: "GrandFleet Member", discordRoleName: "GrandFleet Member", weight: 130 },
 ];
 
 export const rankWeight = (rank: string) =>
@@ -113,6 +131,8 @@ export type Member = {
   name: string;
   rank: string;
   division: DivisionKey | null;
+  /** True when the member holds the Main Crew role */
+  mainCrew?: boolean;
   /** Optional in-game / preferred role blurb */
   title?: string;
 };
@@ -122,23 +142,27 @@ export type Member = {
  * array for a Discord-synced fetch (members mapped by their role names).
  */
 export const roster: Member[] = [
-  { name: "Captain Name", rank: "Captain", division: null, title: "Crew Leader" },
-  { name: "First Mate Name", rank: "First Mate", division: null, title: "Second in command" },
+  { name: "Grand Marshal Name", rank: "Grand Marshal", division: null, mainCrew: true, title: "Captain" },
+  { name: "Knight Commander Name", rank: "Knight Commander", division: null, mainCrew: true, title: "Vice-Captain" },
+  { name: "Saint of War Name", rank: "Saint of War", division: null, mainCrew: true, title: "Left Hand" },
+  { name: "Council Member", rank: "Divine Council", division: null, mainCrew: true },
 
-  { name: "Sunborne Lead", rank: "Division Lead", division: "sunborne", title: "Strategist" },
-  { name: "Sunborne Officer", rank: "Officer", division: "sunborne", title: "Sharpshooter" },
-  { name: "Sunborne Member", rank: "Crew", division: "sunborne", title: "Specialist" },
+  { name: "Oracle Name", rank: "Oracle of the Sun", division: "sunborne", mainCrew: true, title: "Division Commander" },
+  { name: "Solar Eclipse Name", rank: "Solar Eclipse", division: "sunborne", mainCrew: true, title: "Vice Commander" },
+  { name: "Celestial Member", rank: "Celestials", division: "sunborne" },
 
-  { name: "Aegis Lead", rank: "Division Lead", division: "aegis", title: "Shieldbearer" },
-  { name: "Aegis Officer", rank: "Officer", division: "aegis", title: "Vanguard" },
-  { name: "Aegis Member", rank: "Crew", division: "aegis", title: "Bruiser" },
+  { name: "Archon Name", rank: "The Archon of Athena", division: "aegis", mainCrew: true, title: "Division Commander" },
+  { name: "Divine Spear Name", rank: "The Divine Spear", division: "aegis", mainCrew: true, title: "Vice Commander" },
+  { name: "Knight Member", rank: "Knights", division: "aegis" },
 
-  { name: "Windbound Lead", rank: "Division Lead", division: "windbound", title: "Pathfinder" },
-  { name: "Windbound Officer", rank: "Officer", division: "windbound", title: "Quartermaster" },
-  { name: "Windbound Member", rank: "Crew", division: "windbound", title: "Scout" },
+  { name: "Arbiter Name", rank: "Grand Arbiter of Hermes", division: "windbound", mainCrew: true, title: "Division Commander" },
+  { name: "Warden Name", rank: "The Warden of Stars", division: "windbound", mainCrew: true, title: "Vice Commander" },
+  { name: "Saint Member", rank: "Saints", division: "windbound" },
 
-  { name: "New Recruit", rank: "Recruit", division: null },
+  { name: "Main Crew Name", rank: "Main Crew", division: null, mainCrew: true },
+  { name: "Fleet Member", rank: "GrandFleet Member", division: null },
 ];
+
 
 export const accentStyles: Record<
   AccentKey,

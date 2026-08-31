@@ -89,9 +89,11 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
 
         let division: DivisionKey | null = null;
         let rank: (typeof ranks)[number] | null = null;
+        let mainCrew = false;
 
         for (const name of names) {
           const key = name.toLowerCase();
+          if (key === "main crew") mainCrew = true;
           const d = divisionByRole.get(key);
           if (d && !division) division = d;
           const r = rankByRole.get(key);
@@ -101,11 +103,15 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
         // Only show people who actually hold a crew rank or a division role.
         if (!rank && !division) continue;
 
+        if (rank && rank.weight > 150) mainCrew = true;
+
         members.push({
           name: m.nick ?? m.user.global_name ?? m.user.username,
-          rank: rank?.name ?? "Crew",
+          rank: rank?.name ?? "GrandFleet Member",
           division,
+          mainCrew,
         });
+
       }
 
       if (members.length === 0) {

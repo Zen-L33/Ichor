@@ -220,17 +220,23 @@ function Index() {
                   Open the Roster
                 </Link>
               </div>
-              <ul className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-2">
+              <ul className="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
                 {ranks.map((r) => (
                   <li
                     key={r.name}
-                    className="flex items-center gap-2 font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase"
+                    className="flex items-baseline gap-2 font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase"
                   >
-                    <span className="h-1 w-1 rounded-full bg-gold" />
-                    {r.name}
+                    <span className="h-1 w-1 shrink-0 rounded-full bg-gold" />
+                    <span className="text-foreground/80">{r.name}</span>
+                    {r.note && (
+                      <span className="text-[0.6rem] text-muted-foreground/60">
+                        {r.note}
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
+
             </div>
           </div>
         </section>
