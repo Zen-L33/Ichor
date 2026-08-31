@@ -59,7 +59,7 @@ function RosterPage() {
           filter === "all"
             ? true
             : filter === "main"
-              ? Boolean(m.mainCrew)
+              ? isMainCrewRank(m.rank)
               : m.division === filter,
         )
         .sort(
