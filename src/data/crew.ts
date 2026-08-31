@@ -126,6 +126,21 @@ export const ranks: Rank[] = [
 export const rankWeight = (rank: string) =>
   ranks.find((r) => r.name === rank)?.weight ?? 0;
 
+/**
+ * Ranks that belong on the "Main Crew" section of the roster: the Captain,
+ * Vice-Captain, Left Hand, Divine Council, and Main Crew members. Division
+ * commanders and vice commanders are shown under their own division tabs.
+ */
+export const MAIN_CREW_RANKS = new Set([
+  "Grand Marshal",
+  "Knight Commander",
+  "Saint of War",
+  "Divine Council",
+  "Main Crew",
+]);
+
+export const isMainCrewRank = (rank: string) => MAIN_CREW_RANKS.has(rank);
+
 export type Member = {
   /** Discord display name */
   name: string;
@@ -147,19 +162,19 @@ export const roster: Member[] = [
   { name: "Saint of War Name", rank: "Saint of War", division: null, mainCrew: true, title: "Left Hand" },
   { name: "Council Member", rank: "Divine Council", division: null, mainCrew: true },
 
-  { name: "Oracle Name", rank: "Oracle of the Sun", division: "sunborne", mainCrew: true, title: "Division Commander" },
-  { name: "Solar Eclipse Name", rank: "Solar Eclipse", division: "sunborne", mainCrew: true, title: "Vice Commander" },
-  { name: "Lunar Eclipse Name", rank: "Lunar Eclipse", division: "sunborne", mainCrew: true, title: "Vice Commander" },
+  { name: "Oracle Name", rank: "Oracle of the Sun", division: "sunborne", title: "Division Commander" },
+  { name: "Solar Eclipse Name", rank: "Solar Eclipse", division: "sunborne", title: "Vice Commander" },
+  { name: "Lunar Eclipse Name", rank: "Lunar Eclipse", division: "sunborne", title: "Vice Commander" },
   { name: "Celestial Member", rank: "Celestials", division: "sunborne" },
 
-  { name: "Archon Name", rank: "The Archon of Athena", division: "aegis", mainCrew: true, title: "Division Commander" },
-  { name: "Divine Spear Name", rank: "The Divine Spear", division: "aegis", mainCrew: true, title: "Vice Commander" },
-  { name: "Holy Shield Name", rank: "The Holy Shield", division: "aegis", mainCrew: true, title: "Vice Commander" },
+  { name: "Archon Name", rank: "The Archon of Athena", division: "aegis", title: "Division Commander" },
+  { name: "Divine Spear Name", rank: "The Divine Spear", division: "aegis", title: "Vice Commander" },
+  { name: "Holy Shield Name", rank: "The Holy Shield", division: "aegis", title: "Vice Commander" },
   { name: "Knight Member", rank: "Knights", division: "aegis" },
 
-  { name: "Arbiter Name", rank: "Grand Arbiter of Hermes", division: "windbound", mainCrew: true, title: "Division Commander" },
-  { name: "Warden Name", rank: "The Warden of Stars", division: "windbound", mainCrew: true, title: "Vice Commander" },
-  { name: "Shorekeeper Name", rank: "The Shorekeeper", division: "windbound", mainCrew: true, title: "Vice Commander" },
+  { name: "Arbiter Name", rank: "Grand Arbiter of Hermes", division: "windbound", title: "Division Commander" },
+  { name: "Warden Name", rank: "The Warden of Stars", division: "windbound", title: "Vice Commander" },
+  { name: "Shorekeeper Name", rank: "The Shorekeeper", division: "windbound", title: "Vice Commander" },
   { name: "Saint Member", rank: "Saints", division: "windbound" },
 
   { name: "Main Crew Name", rank: "Main Crew", division: null, mainCrew: true },
