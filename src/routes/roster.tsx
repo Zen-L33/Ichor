@@ -132,7 +132,15 @@ function RosterPage() {
           <FilterButton active={filter === "all"} onClick={() => setFilter("all")}>
             All Hands
           </FilterButton>
+          <FilterButton
+            active={filter === "main"}
+            onClick={() => setFilter("main")}
+            accent="gold"
+          >
+            Main Crew
+          </FilterButton>
           {divisions.map((d) => (
+
             <FilterButton
               key={d.key}
               active={filter === d.key}
