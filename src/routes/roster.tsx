@@ -7,6 +7,7 @@ import {
   DISCORD_INVITE,
   accentStyles,
   divisions,
+  isMainCrewRank,
   rankWeight,
   type DivisionKey,
 } from "@/data/crew";
