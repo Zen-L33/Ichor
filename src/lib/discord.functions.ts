@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import {
   DISCORD_GUILD_ID,
   divisions,
+  isMainCrewRank,
   ranks,
   roster as fallbackRoster,
   type DivisionKey,
