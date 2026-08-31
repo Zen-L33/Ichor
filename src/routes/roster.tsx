@@ -45,7 +45,7 @@ export const Route = createFileRoute("/roster")({
   component: RosterPage,
 });
 
-type Filter = DivisionKey | "all";
+type Filter = DivisionKey | "all" | "main";
 
 function RosterPage() {
   const [filter, setFilter] = useState<Filter>("all");
@@ -54,7 +54,13 @@ function RosterPage() {
   const members = useMemo(
     () =>
       data.members
-        .filter((m) => filter === "all" || m.division === filter)
+        .filter((m) =>
+          filter === "all"
+            ? true
+            : filter === "main"
+              ? Boolean(m.mainCrew)
+              : m.division === filter,
+        )
         .sort(
           (a, b) =>
             rankWeight(b.rank) - rankWeight(a.rank) ||
@@ -62,6 +68,7 @@ function RosterPage() {
         ),
     [filter, data.members],
   );
+
 
 
   return (
