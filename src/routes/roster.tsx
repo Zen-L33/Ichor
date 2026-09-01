@@ -148,7 +148,7 @@ function RosterPage() {
               onClick={() => setFilter(d.key)}
               accent={d.accent}
             >
-              {d.short}
+              {d.discordRoleName}
             </FilterButton>
           ))}
         </div>
