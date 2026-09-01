@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Anchor, Users } from "lucide-react";
+import { Anchor } from "lucide-react";
 import {
   DISCORD_INVITE,
   accentStyles,
   divisions,
-  ranks,
 } from "@/data/crew";
 import jollyRogerAsset from "@/assets/ichor-jolly-roger.png.asset.json";
 
@@ -98,8 +97,9 @@ function Index() {
           </h1>
           <div className="rule-regalia mt-6 max-w-sm" />
           <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
-            Silver at the shield, gold in the sun, red in the water. Three
-            divisions, one banner — and the whole of the Rell Seas ahead of us.
+            Steel in our hands, storms in our blood, gold on the horizon. Three
+            divisions, one banner — and the whole of the Rell Seas beneath our
+            boots.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <a
@@ -194,50 +194,6 @@ function Index() {
                 </article>
               );
             })}
-          </div>
-        </section>
-
-        {/* Ranks / roster teaser */}
-        <section className="mx-auto max-w-6xl px-6 pb-24">
-          <div className="surface-plate rounded-2xl border border-border px-8 py-12">
-            <div className="flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-between lg:text-left">
-              <div>
-                <p className="flex items-center justify-center gap-2 font-mono text-xs tracking-[0.35em] text-gold uppercase lg:justify-start">
-                  <Users className="h-3.5 w-3.5" />
-                  Ranks of Ichor
-                </p>
-                <h2 className="mt-3 font-display text-3xl font-bold tracking-wider text-silver sm:text-4xl">
-                  Every hand, on the books
-                </h2>
-                <p className="mt-4 max-w-md text-sm text-muted-foreground">
-                  Our roster mirrors the roles you hold in the Ichor Discord —
-                  your rank and division come straight from your server roles.
-                </p>
-                <Link
-                  to="/roster"
-                  className="mt-6 inline-block rounded-md border border-steel/40 bg-secondary/40 px-6 py-2.5 font-mono text-xs font-semibold tracking-widest text-foreground uppercase transition-colors hover:bg-secondary/60"
-                >
-                  Open the Roster
-                </Link>
-              </div>
-              <ul className="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
-                {ranks.map((r) => (
-                  <li
-                    key={r.name}
-                    className="flex items-baseline gap-2 font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase"
-                  >
-                    <span className="h-1 w-1 shrink-0 rounded-full bg-gold" />
-                    <span className="text-foreground/80">{r.name}</span>
-                    {r.note && (
-                      <span className="text-[0.6rem] text-muted-foreground/60">
-                        {r.note}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-
-            </div>
           </div>
         </section>
 
