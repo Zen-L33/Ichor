@@ -98,8 +98,9 @@ function Index() {
           </h1>
           <div className="rule-regalia mt-6 max-w-sm" />
           <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
-            Silver at the shield, gold in the sun, red in the water. Three
-            divisions, one banner — and the whole of the Rell Seas ahead of us.
+            Steel in our hands, storms in our blood, gold on the horizon. Three
+            divisions, one banner — and the whole of the Rell Seas beneath our
+            boots.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <a
