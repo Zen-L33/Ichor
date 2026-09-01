@@ -89,8 +89,8 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
           .filter((n): n is string => Boolean(n));
 
         let division: DivisionKey | null = null;
-        let rank: (typeof ranks)[number] | null = null;
         let mainCrew = false;
+        const held: (typeof ranks)[number][] = [];
 
         for (const name of names) {
           const key = name.toLowerCase();
@@ -98,21 +98,47 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
           const d = divisionByRole.get(key);
           if (d && !division) division = d;
           const r = rankByRole.get(key);
-          if (r && (!rank || r.weight > rank.weight)) rank = r;
+          if (r) held.push(r);
         }
+
+        // Highest rank in the hierarchy wins when someone holds several.
+        held.sort((a, b) => b.weight - a.weight);
+        const rank = held[0] ?? null;
 
         // Only show people who actually hold a crew rank or a division role.
         if (!rank && !division) continue;
 
-        if (rank && rank.weight > 150) mainCrew = true;
+        const displayName = m.nick ?? m.user.global_name ?? m.user.username;
+
+        if (rank && isMainCrewRank(rank.name)) mainCrew = true;
+
+        // Exception: Divine Council + a division commander rank shows twice —
+        // once under Main Crew, once under their division.
+        const council = held.find((r) => r.name === "Divine Council");
+        const commander = held.find((r) => isDivisionCommanderRank(r.name));
+
+        if (council && commander) {
+          members.push({
+            name: displayName,
+            rank: council.name,
+            division: null,
+            mainCrew: true,
+          });
+          members.push({
+            name: displayName,
+            rank: commander.name,
+            division,
+            mainCrew: false,
+          });
+          continue;
+        }
 
         members.push({
-          name: m.nick ?? m.user.global_name ?? m.user.username,
+          name: displayName,
           rank: rank?.name ?? "GrandFleet Member",
           division,
           mainCrew,
         });
-
       }
 
       if (members.length === 0) {
