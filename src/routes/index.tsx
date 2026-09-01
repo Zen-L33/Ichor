@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Anchor, Users } from "lucide-react";
+import { Anchor } from "lucide-react";
 import {
   DISCORD_INVITE,
   accentStyles,
   divisions,
-  ranks,
 } from "@/data/crew";
 import jollyRogerAsset from "@/assets/ichor-jolly-roger.png.asset.json";
 
