@@ -141,6 +141,19 @@ export const MAIN_CREW_RANKS = new Set([
 
 export const isMainCrewRank = (rank: string) => MAIN_CREW_RANKS.has(rank);
 
+/**
+ * Division commander ranks. Someone who is BOTH Divine Council and a division
+ * commander is listed twice: once under Main Crew, once under their division.
+ */
+export const DIVISION_COMMANDER_RANKS = new Set([
+  "Oracle of the Sun",
+  "The Archon of Athena",
+  "Grand Arbiter of Hermes",
+]);
+
+export const isDivisionCommanderRank = (rank: string) =>
+  DIVISION_COMMANDER_RANKS.has(rank);
+
 export type Member = {
   /** Discord display name */
   name: string;
