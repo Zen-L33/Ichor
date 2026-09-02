@@ -66,7 +66,7 @@ export const divisions: Division[] = [
     ],
     icon: Shield,
     accent: "steel",
-    discordRoleName: "Knights",
+    discordRoleName: "[Knights] - Division",
   },
   {
     key: "windbound",
