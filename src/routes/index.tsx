@@ -5,9 +5,8 @@ import {
   accentStyles,
   divisions,
 } from "@/data/crew";
-import jollyRogerAsset from "@/assets/ichor-jolly-roger.png.asset.json";
 
-const jollyRoger = jollyRogerAsset.url;
+const jollyRoger = "/ichor-jolly-roger.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,7 +39,7 @@ function Index() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 40% at 50% -5%, oklch(0.82 0.012 250 / 14%), transparent 70%), radial-gradient(ellipse 40% 30% at 18% 30%, oklch(0.85 0.14 95 / 8%), transparent 70%), radial-gradient(ellipse 45% 35% at 50% 45%, oklch(0.48 0.19 25 / 12%), transparent 70%)",
+            "radial-gradient(ellipse 60% 40% at 50% -5%, oklch(0.82 0.012 250 / 14%), transparent 70%), radial-gradient(ellipse 40% 30% at 18% 30%, oklch(0.85 0.14 95 / 8%), transparent 70%), radi[...]"
         }}
       />
 
@@ -104,7 +103,7 @@ function Index() {
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <a
               href={DISCORD_INVITE}
-              className="rounded-md bg-primary px-7 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30px_oklch(0.48_0.19_25/60%)]"
+              className="rounded-md bg-primary px-7 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30px_oklch(0.48_0.19_25[...]
             >
               Join the Crew
             </a>
@@ -218,7 +217,7 @@ function Index() {
               </p>
               <a
                 href={DISCORD_INVITE}
-                className="mt-8 inline-block rounded-md bg-primary px-8 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30px_oklch(0.48_0.19_25/60%)]"
+                className="mt-8 inline-block rounded-md bg-primary px-8 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30p[...]
               >
                 Enter the Discord
               </a>
