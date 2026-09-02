@@ -47,7 +47,7 @@ export const divisions: Division[] = [
     ],
     icon: Sun,
     accent: "gold",
-    discordRoleName: "Celestials",
+    discordRoleName: "[Celestials] - Division",
   },
   {
     key: "aegis",
