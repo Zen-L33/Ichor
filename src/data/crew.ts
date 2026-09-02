@@ -103,16 +103,16 @@ export const ranks: Rank[] = [
   { name: "Saint of War", discordRoleName: "Saint of War", note: "Left Hand", weight: 185 },
   { name: "Divine Council", discordRoleName: "Divine Council", weight: 180 },
 
-  { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun", note: "Celestials Commander", weight: 172 },
-  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena", note: "Knights Commander", weight: 171 },
-  { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes", note: "Saints Commander", weight: 170 },
+  { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun", note: "Celestials Captain", weight: 172 },
+  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena", note: "Knight Captain", weight: 171 },
+  { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes", note: "Saints Captain", weight: 170 },
 
-  { name: "Solar Eclipse", discordRoleName: "Solar Eclipse", note: "Celestials Vice Commander", weight: 166 },
-  { name: "Lunar Eclipse", discordRoleName: "Lunar Eclipse", note: "Celestials Vice Commander", weight: 165 },
-  { name: "The Divine Spear", discordRoleName: "The Divine Spear", note: "Knights Vice Commander", weight: 164 },
-  { name: "The Holy Shield", discordRoleName: "The Holy Shield", note: "Knights Vice Commander", weight: 163 },
-  { name: "The Warden of Stars", discordRoleName: "The Warden of Stars", note: "Saints Vice Commander", weight: 162 },
-  { name: "The Shorekeeper", discordRoleName: "The Shorekeeper", note: "Saints Vice Commander", weight: 161 },
+  { name: "Solar Eclipse", discordRoleName: "Solar Eclipse", note: "Celestials Vice", weight: 166 },
+  { name: "Lunar Eclipse", discordRoleName: "Lunar Eclipse", note: "Celestials Vice", weight: 165 },
+  { name: "The Divine Spear", discordRoleName: "The Divine Spear", note: "Knights Vice", weight: 164 },
+  { name: "The Holy Shield", discordRoleName: "The Holy Shield", note: "Knights Vice", weight: 163 },
+  { name: "The Warden of Stars", discordRoleName: "The Warden of Stars", note: "Saints Vice", weight: 162 },
+  { name: "The Shorekeeper", discordRoleName: "The Shorekeeper", note: "Saints Vice", weight: 161 },
 
   { name: "Main Crew", discordRoleName: "Main Crew", weight: 150 },
 
