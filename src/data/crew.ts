@@ -85,7 +85,7 @@ export const divisions: Division[] = [
     ],
     icon: Wind,
     accent: "ichor",
-    discordRoleName: "Saints",
+    discordRoleName: "[Saints] - Division",
   },
 ];
 
