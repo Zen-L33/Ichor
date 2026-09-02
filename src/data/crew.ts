@@ -47,7 +47,7 @@ export const divisions: Division[] = [
     ],
     icon: Sun,
     accent: "gold",
-    discordRoleName: "Celestials",
+    discordRoleName: "[Celestials] - Division",
   },
   {
     key: "aegis",
@@ -66,7 +66,7 @@ export const divisions: Division[] = [
     ],
     icon: Shield,
     accent: "steel",
-    discordRoleName: "Knights",
+    discordRoleName: "[Knights] - Division",
   },
   {
     key: "windbound",
@@ -85,7 +85,7 @@ export const divisions: Division[] = [
     ],
     icon: Wind,
     accent: "ichor",
-    discordRoleName: "Saints",
+    discordRoleName: "[Saints] - Division",
   },
 ];
 
@@ -98,27 +98,27 @@ export type Rank = {
 };
 
 export const ranks: Rank[] = [
-  { name: "Grand Marshal", discordRoleName: "Grand Marshal", note: "Captain", weight: 200 },
-  { name: "Knight Commander", discordRoleName: "Knight Commander", note: "Vice-Captain", weight: 190 },
-  { name: "Saint of War", discordRoleName: "Saint of War", note: "Left Hand", weight: 185 },
+  { name: "Grand Marshal", discordRoleName: "Grand Marshal [Captain]", note: "Captain", weight: 200 },
+  { name: "Knight Commander", discordRoleName: "Knight Commander [Vice-Captain]", note: "Vice-Captain", weight: 190 },
+  { name: "Saint of War", discordRoleName: "Saint of War [Left Hand]", note: "Left Hand", weight: 185 },
   { name: "Divine Council", discordRoleName: "Divine Council", weight: 180 },
 
-  { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun", note: "Celestials Captain", weight: 172 },
-  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena", note: "Knight Captain", weight: 171 },
-  { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes", note: "Saints Captain", weight: 170 },
+  { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun [Celestials Captain]", note: "Celestials Captain", weight: 172 },
+  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena [Knight Captain]", note: "Knight Captain", weight: 171 },
+  { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes [Saints Captain]", note: "Saints Captain", weight: 170 },
 
-  { name: "Solar Eclipse", discordRoleName: "Solar Eclipse", note: "Celestials Vice", weight: 166 },
-  { name: "Lunar Eclipse", discordRoleName: "Lunar Eclipse", note: "Celestials Vice", weight: 165 },
-  { name: "The Divine Spear", discordRoleName: "The Divine Spear", note: "Knights Vice", weight: 164 },
-  { name: "The Holy Shield", discordRoleName: "The Holy Shield", note: "Knights Vice", weight: 163 },
-  { name: "The Warden of Stars", discordRoleName: "The Warden of Stars", note: "Saints Vice", weight: 162 },
-  { name: "The Shorekeeper", discordRoleName: "The Shorekeeper", note: "Saints Vice", weight: 161 },
+  { name: "Solar Eclipse", discordRoleName: "Solar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 166 },
+  { name: "Lunar Eclipse", discordRoleName: "Lunar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 165 },
+  { name: "The Divine Spear", discordRoleName: "The Divine Spear [Knights Vice]", note: "Knights Vice", weight: 164 },
+  { name: "The Holy Shield", discordRoleName: "The Holy Shield [Knights Vice]", note: "Knights Vice", weight: 163 },
+  { name: "The Warden of Stars", discordRoleName: "The Warden of Stars [Saints Vice]", note: "Saints Vice", weight: 162 },
+  { name: "The Shorekeeper", discordRoleName: "The Shorekeeper [Saints Vice]", note: "Saints Vice", weight: 161 },
 
-  { name: "Main Crew", discordRoleName: "Main Crew", weight: 150 },
+  { name: "Main Crew", discordRoleName: "[Main Crew]", weight: 150 },
 
-  { name: "Celestials", discordRoleName: "Celestials", note: "Division member", weight: 142 },
-  { name: "Knights", discordRoleName: "Knights", note: "Division member", weight: 141 },
-  { name: "Saints", discordRoleName: "Saints", note: "Division member", weight: 140 },
+  { name: "Celestials", discordRoleName: "[Celestials] - Division", note: "Division member", weight: 142 },
+  { name: "Knights", discordRoleName: "[Knights] - Division", note: "Division member", weight: 141 },
+  { name: "Saints", discordRoleName: "[Saints] - Division", note: "Division member", weight: 140 },
 
   { name: "GrandFleet Member", discordRoleName: "GrandFleet Member", weight: 130 },
 ];

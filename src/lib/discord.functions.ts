@@ -95,7 +95,6 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
 
         for (const name of names) {
           const key = name.toLowerCase();
-          if (key === "main crew") mainCrew = true;
           const d = divisionByRole.get(key);
           if (d && !division) division = d;
           const r = rankByRole.get(key);
