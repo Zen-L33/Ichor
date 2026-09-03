@@ -47,6 +47,13 @@ async function discordFetch(
 }
 
 /**
+ * Short-lived cache so a burst of page loads doesn't hammer Discord's API
+ * (which is what triggers 429s in the first place).
+ */
+let cache: { result: RosterResult; expires: number } | null = null;
+const CACHE_TTL_MS = 60_000;
+
+/**
  * Pulls every member of the Ichor Discord and maps their roles onto our
  * divisions and ranks (matched by the `discordRoleName` fields in crew.ts).
  *
@@ -57,6 +64,10 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
     const token = process.env["DISCORD_BOT_TOKEN"];
     const guildId = process.env["DISCORD_GUILD_ID"] || DISCORD_GUILD_ID;
     const syncedAt = new Date().toISOString();
+
+    if (cache && cache.expires > Date.now()) {
+      return { ...cache.result, syncedAt };
+    }
 
     if (!token || !guildId) {
       return {
