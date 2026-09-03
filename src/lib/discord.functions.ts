@@ -70,7 +70,7 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
     const headers = { Authorization: `Bot ${token}` };
 
     try {
-      const rolesRes = await fetch(`${API}/guilds/${guildId}/roles`, { headers });
+      const rolesRes = await discordFetch(`${API}/guilds/${guildId}/roles`, headers);
       if (!rolesRes.ok) {
         throw new Error(`roles ${rolesRes.status}`);
       }
@@ -81,9 +81,9 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
       const all: DiscordMember[] = [];
       let after = "0";
       for (let page = 0; page < 10; page++) {
-        const res = await fetch(
+        const res = await discordFetch(
           `${API}/guilds/${guildId}/members?limit=1000&after=${after}`,
-          { headers },
+          headers,
         );
         if (!res.ok) {
           throw new Error(`members ${res.status}`);
