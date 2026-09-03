@@ -19,6 +19,8 @@ const rosterQueryOptions = queryOptions({
   queryKey: ["roster"],
   queryFn: () => getRoster(),
   staleTime: 60_000,
+  retry: 1,
+  refetchOnWindowFocus: false,
 });
 
 
