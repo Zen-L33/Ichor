@@ -39,7 +39,7 @@ function Index() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 40% at 50% -5%, oklch(0.82 0.012 250 / 14%), transparent 70%), radial-gradient(ellipse 40% 30% at 18% 30%, oklch(0.85 0.14 95 / 8%), transparent 70%), radi[...]"
+            "radial-gradient(ellipse 60% 40% at 50% -5%, oklch(0.82 0.012 250 / 14%), transparent 70%), radial-gradient(ellipse 40% 30% at 18% 30%, oklch(0.85 0.14 95 / 8%), transparent 70%), radial-gradient(ellipse 40% 30% at 82% 40%, oklch(0.55 0.21 25 / 10%), transparent 70%)",
         }}
       />
 
