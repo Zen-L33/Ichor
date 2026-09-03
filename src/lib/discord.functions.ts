@@ -28,6 +28,32 @@ type DiscordMember = {
 const API = "https://discord.com/api/v10";
 
 /**
+ * Fetch wrapper that respects Discord's 429 rate limit: waits the
+ * Retry-After window and retries instead of erroring out.
+ */
+async function discordFetch(
+  url: string,
+  headers: Record<string, string>,
+  attempt = 0,
+): Promise<Response> {
+  const res = await fetch(url, { headers });
+  if (res.status === 429 && attempt < 3) {
+    const retryAfter =
+      Number(res.headers.get("Retry-After")) || (attempt + 1) * 2;
+    await new Promise((r) => setTimeout(r, Math.min(retryAfter, 8) * 1000));
+    return discordFetch(url, headers, attempt + 1);
+  }
+  return res;
+}
+
+/**
+ * Short-lived cache so a burst of page loads doesn't hammer Discord's API
+ * (which is what triggers 429s in the first place).
+ */
+let cache: { result: RosterResult; expires: number } | null = null;
+const CACHE_TTL_MS = 60_000;
+
+/**
  * Pulls every member of the Ichor Discord and maps their roles onto our
  * divisions and ranks (matched by the `discordRoleName` fields in crew.ts).
  *
@@ -38,6 +64,10 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
     const token = process.env["DISCORD_BOT_TOKEN"];
     const guildId = process.env["DISCORD_GUILD_ID"] || DISCORD_GUILD_ID;
     const syncedAt = new Date().toISOString();
+
+    if (cache && cache.expires > Date.now()) {
+      return { ...cache.result, syncedAt };
+    }
 
     if (!token || !guildId) {
       return {
@@ -51,7 +81,7 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
     const headers = { Authorization: `Bot ${token}` };
 
     try {
-      const rolesRes = await fetch(`${API}/guilds/${guildId}/roles`, { headers });
+      const rolesRes = await discordFetch(`${API}/guilds/${guildId}/roles`, headers);
       if (!rolesRes.ok) {
         throw new Error(`roles ${rolesRes.status}`);
       }
@@ -62,9 +92,9 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
       const all: DiscordMember[] = [];
       let after = "0";
       for (let page = 0; page < 10; page++) {
-        const res = await fetch(
+        const res = await discordFetch(
           `${API}/guilds/${guildId}/members?limit=1000&after=${after}`,
-          { headers },
+          headers,
         );
         if (!res.ok) {
           throw new Error(`members ${res.status}`);
@@ -150,7 +180,9 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
         };
       }
 
-      return { members, source: "live", error: null, syncedAt };
+      const result: RosterResult = { members, source: "live", error: null, syncedAt };
+      cache = { result, expires: Date.now() + CACHE_TTL_MS };
+      return result;
     } catch (err) {
       console.error("[discord] roster sync failed", err);
       const detail = err instanceof Error ? err.message : "unknown error";
