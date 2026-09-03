@@ -180,7 +180,9 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
         };
       }
 
-      return { members, source: "live", error: null, syncedAt };
+      const result: RosterResult = { members, source: "live", error: null, syncedAt };
+      cache = { result, expires: Date.now() + CACHE_TTL_MS };
+      return result;
     } catch (err) {
       console.error("[discord] roster sync failed", err);
       const detail = err instanceof Error ? err.message : "unknown error";
