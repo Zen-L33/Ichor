@@ -114,6 +114,7 @@ function RosterPage() {
               <>
                 <Users className="h-3.5 w-3.5" />
                 Discord sync pending
+                {data.error ? ` — ${data.error}` : ""}
               </>
             )}
           </p>
