@@ -11,9 +11,9 @@ import {
   rankWeight,
   type DivisionKey,
 } from "@/data/crew";
-import jollyRogerAsset from "@/assets/ichor-jolly-roger.png.asset.json";
 
-const jollyRoger = jollyRogerAsset.url;
+
+const jollyRoger = "/ichor-jolly-roger.webp";
 
 const rosterQueryOptions = queryOptions({
   queryKey: ["roster"],
