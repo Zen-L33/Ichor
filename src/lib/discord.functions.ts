@@ -28,6 +28,25 @@ type DiscordMember = {
 const API = "https://discord.com/api/v10";
 
 /**
+ * Fetch wrapper that respects Discord's 429 rate limit: waits the
+ * Retry-After window and retries instead of erroring out.
+ */
+async function discordFetch(
+  url: string,
+  headers: Record<string, string>,
+  attempt = 0,
+): Promise<Response> {
+  const res = await fetch(url, { headers });
+  if (res.status === 429 && attempt < 3) {
+    const retryAfter =
+      Number(res.headers.get("Retry-After")) || (attempt + 1) * 2;
+    await new Promise((r) => setTimeout(r, Math.min(retryAfter, 8) * 1000));
+    return discordFetch(url, headers, attempt + 1);
+  }
+  return res;
+}
+
+/**
  * Pulls every member of the Ichor Discord and maps their roles onto our
  * divisions and ranks (matched by the `discordRoleName` fields in crew.ts).
  *
