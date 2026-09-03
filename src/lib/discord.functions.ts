@@ -153,10 +153,11 @@ export const getRoster = createServerFn({ method: "GET" }).handler(
       return { members, source: "live", error: null, syncedAt };
     } catch (err) {
       console.error("[discord] roster sync failed", err);
+      const detail = err instanceof Error ? err.message : "unknown error";
       return {
         members: fallbackRoster,
         source: "fallback",
-        error: "Could not reach Discord right now.",
+        error: `Discord sync failed: ${detail}`,
         syncedAt,
       };
     }
