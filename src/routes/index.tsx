@@ -39,7 +39,7 @@ function Index() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 40% at 50% -5%, oklch(0.82 0.012 250 / 14%), transparent 70%), radial-gradient(ellipse 40% 30% at 18% 30%, oklch(0.85 0.14 95 / 8%), transparent 70%), radi[...]"
+            "radial-gradient(ellipse 60% 40% at 50% -5%, oklch(0.82 0.012 250 / 14%), transparent 70%), radial-gradient(ellipse 40% 30% at 18% 30%, oklch(0.85 0.14 95 / 8%), transparent 70%), radial-gradient(ellipse 40% 30% at 82% 40%, oklch(0.55 0.21 25 / 10%), transparent 70%)",
         }}
       />
 
@@ -103,7 +103,7 @@ function Index() {
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <a
               href={DISCORD_INVITE}
-              className="rounded-md bg-primary px-7 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30px_oklch(0.48_0.19_25[...]
+              className="rounded-md bg-primary px-7 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30px_oklch(0.48_0.19_25/45%)]"
             >
               Join the Crew
             </a>
@@ -217,7 +217,7 @@ function Index() {
               </p>
               <a
                 href={DISCORD_INVITE}
-                className="mt-8 inline-block rounded-md bg-primary px-8 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30p[...]
+                className="mt-8 inline-block rounded-md bg-primary px-8 py-3 font-mono text-sm font-semibold tracking-widest text-primary-foreground uppercase transition-all hover:shadow-[0_0_30px_oklch(0.48_0.19_25/45%)]"
               >
                 Enter the Discord
               </a>
