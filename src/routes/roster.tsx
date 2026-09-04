@@ -38,13 +38,13 @@ const rosterQueryOptions = queryOptions({
 export const Route = createFileRoute("/roster")({
   head: () => ({
     meta: [
-      { title: "ICHOR Roster — The Crew of the Red Wing" },
+      { title: "Ichor Roster — The Crew of the Red Wing" },
       {
         name: "description",
         content:
           "The full Ichor crew roster, sorted by Discord rank and division: Sunborne Celestials, Aegis Knights and Windbound Saints.",
       },
-      { property: "og:title", content: "ICHOR Roster — The Crew of the Red Wing" },
+      { property: "og:title", content: "Ichor Roster — The Crew of the Red Wing" },
       {
         property: "og:description",
         content:
@@ -54,8 +54,6 @@ export const Route = createFileRoute("/roster")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  loader: ({ context }) =>
-    context.queryClient.ensureQueryData(rosterQueryOptions),
   component: RosterPage,
 });
 
@@ -63,7 +61,7 @@ type Filter = DivisionKey | "all" | "main";
 
 function RosterPage() {
   const [filter, setFilter] = useState<Filter>("all");
-  const { data } = useSuspenseQuery(rosterQueryOptions);
+  const { data = placeholderRoster } = useQuery(rosterQueryOptions);
 
   const members = useMemo(
     () =>
