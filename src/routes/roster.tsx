@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Users, Anchor, RefreshCw } from "lucide-react";
 import { getRoster } from "@/lib/discord.functions";
@@ -9,19 +9,30 @@ import {
   divisions,
   isMainCrewRank,
   rankWeight,
+  roster as fallbackRoster,
   type DivisionKey,
 } from "@/data/crew";
+import type { RosterResult } from "@/lib/discord.functions";
 
 
 const jollyRoger = "/ichor-jolly-roger.webp";
 
+const placeholderRoster: RosterResult = {
+  members: fallbackRoster,
+  source: "fallback",
+  error: null,
+  syncedAt: "",
+};
+
 const rosterQueryOptions = queryOptions({
   queryKey: ["roster"],
   queryFn: () => getRoster(),
-  staleTime: 60_000,
-  retry: 1,
+  staleTime: 5 * 60_000,
+  retry: false,
   refetchOnWindowFocus: false,
+  placeholderData: placeholderRoster,
 });
+
 
 
 export const Route = createFileRoute("/roster")({
