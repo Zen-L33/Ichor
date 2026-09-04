@@ -46,11 +46,14 @@ async function discordFetch(
       // Some Discord edge responses are HTML and only provide headers.
     }
 
-    const retryAfter = Math.max(
-      Number(res.headers.get("Retry-After")) || 0,
-      Number(res.headers.get("X-RateLimit-Reset-After")) || 0,
-      bodyRetryAfter,
-      (attempt + 1) * 2,
+    const retryAfter = Math.min(
+      Math.max(
+        Number(res.headers.get("Retry-After")) || 0,
+        Number(res.headers.get("X-RateLimit-Reset-After")) || 0,
+        bodyRetryAfter,
+        (attempt + 1) * 2,
+      ),
+      15,
     );
     await new Promise((resolve) => setTimeout(resolve, retryAfter * 1000 + 250));
     return discordFetch(url, headers, attempt + 1);
