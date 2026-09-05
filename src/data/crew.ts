@@ -95,6 +95,13 @@ export type Rank = {
   /** Plain-language meaning of the title */
   note?: string;
   weight: number; // higher = more senior, used for roster ordering
+  /**
+   * Division this rank belongs to. Division commanders and vice commanders
+   * always sit under their own division, even if they also hold another
+   * division's member role. Crew-wide ranks (Captain, Left Hand, etc.)
+   * leave this unset.
+   */
+  division?: DivisionKey;
 };
 
 export const ranks: Rank[] = [
@@ -103,22 +110,22 @@ export const ranks: Rank[] = [
   { name: "Saint of War", discordRoleName: "Saint of War [Left Hand]", note: "Left Hand", weight: 185 },
   { name: "Divine Council", discordRoleName: "Divine Council", weight: 180 },
 
-  { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun [Celestials Captain]", note: "Celestials Captain", weight: 172 },
-  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena [Knights Captain]", note: "Knights Captain", weight: 171 },
-  { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes [Saints Captain]", note: "Saints Captain", weight: 170 },
+  { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun [Celestials Captain]", note: "Celestials Captain", weight: 172, division: "sunborne" },
+  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena [Knights Captain]", note: "Knights Captain", weight: 171, division: "aegis" },
+  { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes [Saints Captain]", note: "Saints Captain", weight: 170, division: "windbound" },
 
-  { name: "The Solar Eclipse", discordRoleName: "The Solar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 166 },
-  { name: "The Lunar Eclipse", discordRoleName: "The Lunar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 165 },
-  { name: "The Divine Spear", discordRoleName: "The Divine Spear [Knights Vice]", note: "Knights Vice", weight: 164 },
-  { name: "The Holy Shield", discordRoleName: "The Holy Shield [Knights Vice]", note: "Knights Vice", weight: 163 },
-  { name: "The Warden of Stars", discordRoleName: "The Warden of Stars [Saints Vice]", note: "Saints Vice", weight: 162 },
-  { name: "The Shorekeeper", discordRoleName: "The Shorekeeper [Saints Vice]", note: "Saints Vice", weight: 161 },
+  { name: "The Solar Eclipse", discordRoleName: "The Solar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 166, division: "sunborne" },
+  { name: "The Lunar Eclipse", discordRoleName: "The Lunar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 165, division: "sunborne" },
+  { name: "The Divine Spear", discordRoleName: "The Divine Spear [Knights Vice]", note: "Knights Vice", weight: 164, division: "aegis" },
+  { name: "The Holy Shield", discordRoleName: "The Holy Shield [Knights Vice]", note: "Knights Vice", weight: 163, division: "aegis" },
+  { name: "The Warden of Stars", discordRoleName: "The Warden of Stars [Saints Vice]", note: "Saints Vice", weight: 162, division: "windbound" },
+  { name: "The Shorekeeper", discordRoleName: "The Shorekeeper [Saints Vice]", note: "Saints Vice", weight: 161, division: "windbound" },
 
   { name: "Main Crew", discordRoleName: "[Main Crew]", weight: 150 },
 
-  { name: "Celestials", discordRoleName: "[Celestials] - Division", note: "Division member", weight: 142 },
-  { name: "Knights", discordRoleName: "[Knights] - Division", note: "Division member", weight: 141 },
-  { name: "Saints", discordRoleName: "[Saints] - Division", note: "Division member", weight: 140 },
+  { name: "Celestials", discordRoleName: "[Celestials] - Division", note: "Division member", weight: 142, division: "sunborne" },
+  { name: "Knights", discordRoleName: "[Knights] - Division", note: "Division member", weight: 141, division: "aegis" },
+  { name: "Saints", discordRoleName: "[Saints] - Division", note: "Division member", weight: 140, division: "windbound" },
 
   { name: "GrandFleet Member", discordRoleName: "GrandFleet Member", weight: 130 },
 ];
