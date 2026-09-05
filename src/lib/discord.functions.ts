@@ -153,7 +153,15 @@ async function fetchRoster(): Promise<RosterResult> {
 
       const displayName = m.nick ?? m.user.global_name ?? m.user.username;
 
-      if (rank && isMainCrewRank(rank.name)) mainCrew = true;
+      if (rank && isMainCrewRank(rank.name)) {
+        mainCrew = true;
+        // Crew-wide ranks (Captain, Vice-Captain, Left Hand, Divine Council,
+        // Main Crew) belong to no division, even if they hold a division role.
+        division = null;
+      } else if (rank?.division) {
+        // Commanders and vice commanders sit under their own division.
+        division = rank.division;
+      }
 
       // Exception: Divine Council + a division commander rank shows twice —
       // once under Main Crew, once under their division.
@@ -170,7 +178,7 @@ async function fetchRoster(): Promise<RosterResult> {
         members.push({
           name: displayName,
           rank: commander.name,
-          division,
+          division: commander.division ?? division,
           mainCrew: false,
         });
         continue;
