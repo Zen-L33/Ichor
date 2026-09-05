@@ -104,11 +104,11 @@ export const ranks: Rank[] = [
   { name: "Divine Council", discordRoleName: "Divine Council", weight: 180 },
 
   { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun [Celestials Captain]", note: "Celestials Captain", weight: 172 },
-  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena [Knight Captain]", note: "Knight Captain", weight: 171 },
+  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena [Knights Captain]", note: "Knights Captain", weight: 171 },
   { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes [Saints Captain]", note: "Saints Captain", weight: 170 },
 
-  { name: "Solar Eclipse", discordRoleName: "Solar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 166 },
-  { name: "Lunar Eclipse", discordRoleName: "Lunar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 165 },
+  { name: "The Solar Eclipse", discordRoleName: "The Solar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 166 },
+  { name: "The Lunar Eclipse", discordRoleName: "The Lunar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 165 },
   { name: "The Divine Spear", discordRoleName: "The Divine Spear [Knights Vice]", note: "Knights Vice", weight: 164 },
   { name: "The Holy Shield", discordRoleName: "The Holy Shield [Knights Vice]", note: "Knights Vice", weight: 163 },
   { name: "The Warden of Stars", discordRoleName: "The Warden of Stars [Saints Vice]", note: "Saints Vice", weight: 162 },
