@@ -203,6 +203,7 @@ async function fetchRoster(): Promise<RosterResult> {
       }, ERROR_CACHE_TTL_MS);
     }
 
+    lastGood = { members, syncedAt };
     return cacheResult(
       { members, source: "live", error: null, syncedAt },
       CACHE_TTL_MS,
@@ -210,6 +211,16 @@ async function fetchRoster(): Promise<RosterResult> {
   } catch (err) {
     console.error("[discord] roster sync failed", err);
     const detail = err instanceof Error ? err.message : "unknown error";
+    // Discord (especially from shared hosting IPs) rate-limits often — if we
+    // have a previous good sync, keep showing it instead of dropping the page.
+    if (lastGood) {
+      return cacheResult({
+        members: lastGood.members,
+        source: "live",
+        error: `Discord rate-limited the refresh — showing the last good sync (${detail})`,
+        syncedAt: lastGood.syncedAt,
+      }, ERROR_CACHE_TTL_MS);
+    }
     return cacheResult({
       members: fallbackRoster,
       source: "fallback",
