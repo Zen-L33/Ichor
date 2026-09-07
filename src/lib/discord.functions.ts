@@ -37,7 +37,7 @@ async function discordFetch(
   attempt = 0,
 ): Promise<Response> {
   const res = await fetch(url, { headers });
-  if (res.status === 429 && attempt < 3) {
+  if (res.status === 429 && attempt < 4) {
     let bodyRetryAfter = 0;
     try {
       const body = (await res.clone().json()) as { retry_after?: number };
@@ -53,7 +53,7 @@ async function discordFetch(
         bodyRetryAfter,
         (attempt + 1) * 2,
       ),
-      15,
+      40,
     );
     await new Promise((resolve) => setTimeout(resolve, retryAfter * 1000 + 250));
     return discordFetch(url, headers, attempt + 1);
@@ -67,8 +67,10 @@ async function discordFetch(
  */
 let cache: { result: RosterResult; expires: number } | null = null;
 let inFlight: Promise<RosterResult> | null = null;
-const CACHE_TTL_MS = 5 * 60_000;
-const ERROR_CACHE_TTL_MS = 2 * 60_000;
+/** Last successful live roster — served whenever Discord refuses a refresh. */
+let lastGood: { members: Member[]; syncedAt: string } | null = null;
+const CACHE_TTL_MS = 15 * 60_000;
+const ERROR_CACHE_TTL_MS = 60_000;
 
 function cacheResult(result: RosterResult, ttl: number) {
   cache = { result, expires: Date.now() + ttl };
@@ -201,6 +203,7 @@ async function fetchRoster(): Promise<RosterResult> {
       }, ERROR_CACHE_TTL_MS);
     }
 
+    lastGood = { members, syncedAt };
     return cacheResult(
       { members, source: "live", error: null, syncedAt },
       CACHE_TTL_MS,
@@ -208,6 +211,16 @@ async function fetchRoster(): Promise<RosterResult> {
   } catch (err) {
     console.error("[discord] roster sync failed", err);
     const detail = err instanceof Error ? err.message : "unknown error";
+    // Discord (especially from shared hosting IPs) rate-limits often — if we
+    // have a previous good sync, keep showing it instead of dropping the page.
+    if (lastGood) {
+      return cacheResult({
+        members: lastGood.members,
+        source: "live",
+        error: `Discord rate-limited the refresh — showing the last good sync (${detail})`,
+        syncedAt: lastGood.syncedAt,
+      }, ERROR_CACHE_TTL_MS);
+    }
     return cacheResult({
       members: fallbackRoster,
       source: "fallback",

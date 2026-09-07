@@ -121,6 +121,7 @@ function RosterPage() {
               <>
                 <RefreshCw className="h-3.5 w-3.5" />
                 Live from our Discord roles
+                {data.error ? ` — ${data.error}` : ""}
               </>
             ) : (
               <>
