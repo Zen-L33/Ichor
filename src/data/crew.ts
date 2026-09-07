@@ -92,7 +92,7 @@ export const divisions: Division[] = [
 export type Rank = {
   name: string;
   discordRoleName: string;
-  /** Plain-language meaning of the title */
+  /** Plain-language responsibility shown beside the rank */
   note?: string;
   weight: number; // higher = more senior, used for roster ordering
   /**
@@ -108,30 +108,33 @@ export const ranks: Rank[] = [
   { name: "Grand Marshal", discordRoleName: "Grand Marshal [Captain]", note: "Captain", weight: 200 },
   { name: "Knight Commander", discordRoleName: "Knight Commander [Vice-Captain]", note: "Vice-Captain", weight: 190 },
   { name: "Saint of War", discordRoleName: "Saint of War [Left Hand]", note: "Left Hand", weight: 185 },
-  { name: "Divine Council", discordRoleName: "Divine Council", weight: 180 },
+  { name: "Divine Council", discordRoleName: "Divine Council", note: "Council Member", weight: 180 },
 
-  { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun [Celestials Captain]", note: "Celestials Captain", weight: 172, division: "sunborne" },
-  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena [Knights Captain]", note: "Knights Captain", weight: 171, division: "aegis" },
-  { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes [Saints Captain]", note: "Saints Captain", weight: 170, division: "windbound" },
+  { name: "Oracle of the Sun", discordRoleName: "Oracle of the Sun [Celestials Captain]", note: "Commander", weight: 172, division: "sunborne" },
+  { name: "The Archon of Athena", discordRoleName: "The Archon of Athena [Knights Captain]", note: "Commander", weight: 171, division: "aegis" },
+  { name: "Grand Arbiter of Hermes", discordRoleName: "Grand Arbiter of Hermes [Saints Captain]", note: "Commander", weight: 170, division: "windbound" },
 
-  { name: "The Solar Eclipse", discordRoleName: "The Solar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 166, division: "sunborne" },
-  { name: "The Lunar Eclipse", discordRoleName: "The Lunar Eclipse [Celestials Vice]", note: "Celestials Vice", weight: 165, division: "sunborne" },
-  { name: "The Divine Spear", discordRoleName: "The Divine Spear [Knights Vice]", note: "Knights Vice", weight: 164, division: "aegis" },
-  { name: "The Holy Shield", discordRoleName: "The Holy Shield [Knights Vice]", note: "Knights Vice", weight: 163, division: "aegis" },
-  { name: "The Warden of Stars", discordRoleName: "The Warden of Stars [Saints Vice]", note: "Saints Vice", weight: 162, division: "windbound" },
-  { name: "The Shorekeeper", discordRoleName: "The Shorekeeper [Saints Vice]", note: "Saints Vice", weight: 161, division: "windbound" },
+  { name: "The Solar Eclipse", discordRoleName: "The Solar Eclipse [Celestials Vice]", note: "Vice-Commander", weight: 166, division: "sunborne" },
+  { name: "The Lunar Eclipse", discordRoleName: "The Lunar Eclipse [Celestials Vice]", note: "Vice-Commander", weight: 165, division: "sunborne" },
+  { name: "The Divine Spear", discordRoleName: "The Divine Spear [Knights Vice]", note: "Vice-Commander", weight: 164, division: "aegis" },
+  { name: "The Holy Shield", discordRoleName: "The Holy Shield [Knights Vice]", note: "Vice-Commander", weight: 163, division: "aegis" },
+  { name: "The Warden of Stars", discordRoleName: "The Warden of Stars [Saints Vice]", note: "Vice-Commander", weight: 162, division: "windbound" },
+  { name: "The Shorekeeper", discordRoleName: "The Shorekeeper [Saints Vice]", note: "Vice-Commander", weight: 161, division: "windbound" },
 
-  { name: "Main Crew", discordRoleName: "[Main Crew]", weight: 150 },
+  { name: "Main Crew", discordRoleName: "[Main Crew]", note: "Crew Member", weight: 150 },
 
   { name: "Celestials", discordRoleName: "[Celestials] - Division", note: "Division member", weight: 142, division: "sunborne" },
   { name: "Knights", discordRoleName: "[Knights] - Division", note: "Division member", weight: 141, division: "aegis" },
   { name: "Saints", discordRoleName: "[Saints] - Division", note: "Division member", weight: 140, division: "windbound" },
 
-  { name: "GrandFleet Member", discordRoleName: "GrandFleet Member", weight: 130 },
+  { name: "GrandFleet Member", discordRoleName: "GrandFleet Member", note: "Fleet Member", weight: 130 },
 ];
 
 export const rankWeight = (rank: string) =>
   ranks.find((r) => r.name === rank)?.weight ?? 0;
+
+export const rankNote = (rank: string) =>
+  ranks.find((r) => r.name === rank)?.note ?? "Crew Member";
 
 /**
  * Ranks that belong on the "Main Crew" section of the roster: the Captain,

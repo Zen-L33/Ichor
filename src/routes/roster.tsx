@@ -8,6 +8,7 @@ import {
   accentStyles,
   divisions,
   isMainCrewRank,
+  rankNote,
   rankWeight,
   roster as fallbackRoster,
   type DivisionKey,
@@ -184,20 +185,17 @@ function RosterPage() {
                   <p className="truncate font-display text-lg font-bold text-foreground">
                     {m.name}
                   </p>
-                  <p className="mt-0.5 font-mono text-[0.65rem] tracking-[0.2em] uppercase">
+                  <p className="mt-0.5 flex flex-wrap items-center gap-x-1 font-mono text-[0.65rem] tracking-[0.12em] uppercase">
                     <span className="text-gold">{m.rank}</span>
                     {division && (
                       <>
                         <span className="text-muted-foreground/50"> · </span>
-                        <span className={accent!.text}>{division.short}</span>
+                        <span className={accent?.text}>{division.short}</span>
                       </>
                     )}
+                    <span className="text-muted-foreground/50"> · </span>
+                    <span className="text-muted-foreground">{rankNote(m.rank)}</span>
                   </p>
-                  {m.title && (
-                    <p className="mt-1 truncate text-xs text-muted-foreground">
-                      {m.title}
-                    </p>
-                  )}
                 </div>
               </article>
             );
