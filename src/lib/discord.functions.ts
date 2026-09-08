@@ -82,6 +82,92 @@ async function fetchRoster(): Promise<RosterResult> {
   const guildId = process.env["DISCORD_GUILD_ID"] || DISCORD_GUILD_ID;
   const syncedAt = new Date().toISOString();
 
+  // If an external roster URL is provided (e.g., GitHub Actions writes data/roster.json),
+  // prefer that to avoid calling Discord from hosts that share egress IPs.
+  const externalUrl = process.env["EXTERNAL_ROSTER_URL"];
+  if (externalUrl) {
+    try {
+      const extRes = await fetch(externalUrl);
+      if (extRes.ok) {
+        const payload = await extRes.json();
+        if (Array.isArray(payload?.members)) {
+          // If members already match Member[] shape (have rank/division), use directly.
+          const first = payload.members[0];
+          if (first && typeof first.rank === 'string') {
+            return cacheResult(
+              {
+                members: payload.members as Member[],
+                source: "live",
+                error: null,
+                syncedAt: payload.syncedAt ?? syncedAt,
+              },
+              CACHE_TTL_MS,
+            );
+          }
+
+          // Otherwise, payload.members is expected to be [{ name, roles: [roleName...] }, ...]
+          // Map role names to ranks/divisions using the same rules as the live Discord sync.
+          const divisionByRole = new Map<string, DivisionKey>(
+            divisions.map((d) => [d.discordRoleName.toLowerCase(), d.key]),
+          );
+          const rankByRole = new Map(
+            ranks.map((r) => [r.discordRoleName.toLowerCase(), r]),
+          );
+
+          const members: Member[] = [];
+          for (const m of payload.members) {
+            const names: string[] = Array.isArray(m.roles) ? m.roles.filter(Boolean) : [];
+            const displayName = m.name ?? 'Unknown';
+
+            let division: DivisionKey | null = null;
+            let mainCrew = false;
+            const held: (typeof ranks)[number][] = [];
+
+            for (const name of names) {
+              const key = name.toLowerCase();
+              const d = divisionByRole.get(key);
+              if (d && !division) division = d;
+              const r = rankByRole.get(key);
+              if (r) held.push(r);
+            }
+
+            held.sort((a, b) => b.weight - a.weight);
+            const rank = held[0] ?? null;
+
+            if (!rank && !division) continue;
+
+            if (rank && isMainCrewRank(rank.name)) {
+              mainCrew = true;
+              division = null;
+            } else if (rank?.division) {
+              division = rank.division;
+            }
+
+            const council = held.find((r) => r.name === "Divine Council");
+            const commander = held.find((r) => isDivisionCommanderRank(r.name));
+
+            if (council && commander) {
+              members.push({ name: displayName, rank: council.name, division: null, mainCrew: true });
+              members.push({ name: displayName, rank: commander.name, division: commander.division ?? division, mainCrew: false });
+              continue;
+            }
+
+            members.push({ name: displayName, rank: rank?.name ?? "GrandFleet Member", division, mainCrew });
+          }
+
+          if (members.length > 0) {
+            return cacheResult({ members, source: "live", error: null, syncedAt: payload.syncedAt ?? syncedAt }, CACHE_TTL_MS);
+          }
+        }
+      } else {
+        console.warn("[discord] external roster returned non-ok:", extRes.status);
+      }
+    } catch (e) {
+      console.warn("[discord] external roster fetch failed", e);
+      // fall-through to normal Discord sync
+    }
+  }
+
   if (!token || !guildId) {
     return cacheResult({
       members: fallbackRoster,
