@@ -1,0 +1,42 @@
+name: Update roster
+
+on:
+  schedule:
+    - cron: '*/15 * * * *' # every 15 minutes
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-roster:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run roster fetch
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
+        run: |
+          node .github/scripts/fetch-roster.js
+
+      - name: Commit roster
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/roster.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update roster.json" || true
+            git push
+          else
+            echo "No changes to roster.json"
+          fi
