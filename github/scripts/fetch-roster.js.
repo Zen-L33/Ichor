@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+/*
+  fetch-roster.js
+  - fetches Discord roles + members using DISCORD_BOT_TOKEN and DISCORD_GUILD_ID
+  - writes data/roster.json with shape: { source, syncedAt, members: [{ name, roles: [roleName, ...] }, ...] }
+*/
+
+const fs = require('fs/promises');
+
+const API = 'https://discord.com/api/v10';
+
+async function discordFetch(url, headers, attempt = 0) {
+  const res = await fetch(url, { headers });
+  if (res.status === 429 && attempt < 4) {
+    let wait = 0;
+    try {
+      const body = await res.clone().json();
+      wait = Number(body.retry_after) || 0;
+    } catch (e) {
+      // ignore
+    }
+    wait = wait || Number(res.headers.get('Retry-After')) || 5;
+    await new Promise(r => setTimeout(r, (wait + 1) * 1000));
+    return discordFetch(url, headers, attempt + 1);
+  }
+  return res;
+}
+
+async function main() {
+  const token = process.env.DISCORD_BOT_TOKEN;
+  const guildId = process.env.DISCORD_GUILD_ID;
+  if (!token || !guildId) {
+    console.error('Missing DISCORD_BOT_TOKEN or DISCORD_GUILD_ID');
+    process.exit(1);
+  }
+
+  const headers = { Authorization: `Bot ${token}` };
+
+  // roles
+  const rolesRes = await discordFetch(`${API}/guilds/${guildId}/roles`, headers);
+  if (!rolesRes.ok) throw new Error('roles ' + rolesRes.status);
+  const roles = await rolesRes.json();
+  const roleNameById = new Map(roles.map(r => [r.id, r.name]));
+
+  // members (paginated)
+  const all = [];
+  let after = '0';
+  for (let i = 0; i < 10; i++) {
+    const res = await discordFetch(`${API}/guilds/${guildId}/members?limit=1000&after=${after}`, headers);
+    if (!res.ok) throw new Error('members ' + res.status);
+    const batch = await res.json();
+    all.push(...batch);
+    if (batch.length < 1000) break;
+    after = batch.at(-1).user.id;
+  }
+
+  const members = all
+    .filter(m => !m.user.bot)
+    .map(m => {
+      const names = m.roles.map(id => roleNameById.get(id)).filter(Boolean);
+      const displayName = m.nick ?? m.user.global_name ?? m.user.username;
+      return { name: displayName, roles: names };
+    });
+
+  const out = {
+    source: 'github-actions',
+    syncedAt: new Date().toISOString(),
+    members,
+  };
+
+  // ensure data dir exists
+  await fs.mkdir('data', { recursive: true });
+  await fs.writeFile('data/roster.json', JSON.stringify(out, null, 2), 'utf8');
+  console.log('Wrote data/roster.json with', members.length, 'members');
+}
+
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
